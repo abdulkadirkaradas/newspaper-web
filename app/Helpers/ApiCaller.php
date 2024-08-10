@@ -4,7 +4,8 @@ namespace App\Helpers;
 
 use Illuminate\Support\Facades\Http;
 
-class ApiCaller {
+class ApiCaller
+{
     protected $baseUrl;
     protected $headers = [];
     protected $response;
@@ -21,11 +22,9 @@ class ApiCaller {
 
         $request = Http::withHeaders($this->headers);
 
-        if (strtolower($method) === 'get') {
-            $request = $request->get($url, $query);
-        } else {
-            $request = $request->{strtolower($method)}($url, $data);
-        }
+        $request = strtolower($method) === 'get'
+            ? $request->get($url, $query)
+            : $request->{strtolower($method)}($url, $data);
 
         $this->response = $request;
         return $this->response->json();
