@@ -16,7 +16,9 @@ class DashboardController extends Controller
 
     public function dashboard()
     {
-        $this->apiCaller->call(GET, 'public/allNews/', [], []);
+        $this->apiCaller->call(GET, 'public/news/', [], [
+            "type" => "all"
+        ]);
 
         $response = $this->apiCaller->getResponse();
 
