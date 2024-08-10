@@ -13,4 +13,13 @@ class DashboardController extends Controller
     {
         $this->apiCaller = new ApiCaller(API_URL, DEFAULT_HEADERS);
     }
+
+    public function dashboard()
+    {
+        $this->apiCaller->call(GET, 'public/allNews/', [], []);
+
+        $response = $this->apiCaller->getResponse();
+
+        return view('layouts.main', ['response' => $response]);
+    }
 }
