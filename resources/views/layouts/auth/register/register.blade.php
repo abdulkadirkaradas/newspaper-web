@@ -6,7 +6,7 @@
             {{ __('register.title') }}
         </div>
         <div class="section body">
-            <form id="register-form" action="{{ route('register.save') }}" method="POST" data-parsley-validate>
+            <form id="register-form" data-parsley-validate>
                 @method('POST')
                 @csrf
                 <div class="input-group mb-3">
@@ -40,6 +40,7 @@
                 <div class="d-flex align-items-center justify-content-center mt-4">
                     <button type="submit" class="btn btn-primary">{{ __('register.submit') }}</button>
                 </div>
+                <span class="ajax-error-message hidden"></span>
             </form>
         </div>
         {{-- <div class="section footer"></div> --}}
@@ -50,6 +51,30 @@
 <script>
     $(document).ready(function() {
         $('#register-form').parsley();
+
+        $('#register-form').on('submit', function(e) {
+            e.preventDefault();
+            let errorMessage = $('.ajax-error-message');
+
+            errorMessage
+                .addClass('hidden')
+                .text('');
+
+            const formData = $(this).serialize();
+            $.ajax({
+                method: "POST",
+                url: "{{ route('register.save') }}",
+                data: formData,
+            }).done(function(response) {
+                if (response.status === 200) {
+                    window.location.href = "{{ route('dashboard') }}"
+                }
+
+                errorMessage
+                    .removeClass('hidden')
+                    .text(response.message);
+            });
+        });
     });
 </script>
 
