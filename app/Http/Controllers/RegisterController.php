@@ -23,16 +23,28 @@ class RegisterController extends Controller
     {
         $params = $request->only(['name', 'lastname', 'username', 'email', 'password']);
 
-        $this->apiCaller->call(POST, 'auth/register/', [], [
+        $this->apiCaller->call(POST, 'auth/register/', [
             "name" => $params['name'],
             "lastname" => $params['lastname'],
             "username" => $params['username'],
             "email" => $params['email'],
             "password" => $params['password'],
-        ]);
+        ], []);
 
         $response = $this->apiCaller->getResponse();
 
-        return view('layouts.main', ['response' => $response]);
+        $decoded = json_decode($response, true);
+        $status = $decoded['status'];
+        $message = $decoded['message'];
+
+        if ($status === 200) {
+            $authToken = $decoded['authorisation']['token'];
+
+            session(['auth_token' => $authToken]);
+
+            return response()->json(['status' => $status]);
+        }
+
+        return response()->json(['status' => $status, 'message' => $message]);
     }
 }
