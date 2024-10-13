@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'News'), // This name will be changed with a proper name
+    'name' => env('APP_NAME', 'news'), // This name will be changed with a proper name
 
     /*
     |--------------------------------------------------------------------------
