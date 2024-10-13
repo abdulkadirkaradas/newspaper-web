@@ -32,6 +32,6 @@ class ApiCaller
 
     public function getResponse()
     {
-        return $this->response;
+        return $this->response ?? $this->response->json();
     }
 }
