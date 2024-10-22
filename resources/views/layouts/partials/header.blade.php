@@ -13,7 +13,13 @@
                 <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search" />
             </form>
 
-            @if (!session()->has('auth_token'))
+            @if (session()->has('auth_token'))
+                <div class="user-icon-container">
+                    <div class="user-icon">
+                        <i class="fa-solid fa-circle-user fa-2xl"></i>
+                    </div>
+                </div>
+            @else
                 <div class="text-end">
                     {{-- TODO: Login should be pop-up so that user can easily log in --}}
                     <a href="#" class="btn btn-outline-light me-2">Login</a>
@@ -24,4 +30,9 @@
         </div>
     </div>
 </header>
-<p></p>
+
+<style>
+    .user-icon-container {
+        cursor: pointer;
+    }
+</style>
