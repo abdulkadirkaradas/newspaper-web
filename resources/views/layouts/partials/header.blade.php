@@ -13,12 +13,14 @@
                 <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search" />
             </form>
 
-            <div class="text-end">
-                {{-- TODO: Login should be pop-up so that user can easily log in --}}
-                <a href="#" class="btn btn-outline-light me-2">Login</a>
-                {{-- TODO: Register process must be maded with pop-up --}}
-                <a href="{{ route('register.view') }}" class="btn btn-warning">Sign-up</a>
-            </div>
+            @if (!session()->has('auth_token'))
+                <div class="text-end">
+                    {{-- TODO: Login should be pop-up so that user can easily log in --}}
+                    <a href="#" class="btn btn-outline-light me-2">Login</a>
+                    {{-- TODO: Register process must be maded with pop-up --}}
+                    <a href="{{ route('register.view') }}" class="btn btn-warning">Sign-up</a>
+                </div>
+            @endif
         </div>
     </div>
 </header>
