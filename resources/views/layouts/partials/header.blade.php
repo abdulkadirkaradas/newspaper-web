@@ -16,14 +16,14 @@
             @if (session()->has('auth_token'))
                 {{-- TODO: User quick actions should be shown when the user click icon --}}
                 <div class="user-icon-container">
-                    <div class="user-icon">
+                    <a href="{{ route('dashboard') }}">
                         <i class="fa-solid fa-circle-user fa-2xl"></i>
-                    </div>
+                    </a>
                 </div>
             @else
                 <div class="text-end">
                     {{-- TODO: Login should be pop-up so that user can easily log in --}}
-                    <a href="#" class="btn btn-outline-light me-2">Login</a>
+                    <a href="{{ route('login.view') }}" class="btn btn-outline-light me-2">Login</a>
                     {{-- TODO: Register process must be maded with pop-up --}}
                     <a href="{{ route('register.view') }}" class="btn btn-warning">Sign-up</a>
                 </div>
@@ -31,9 +31,3 @@
         </div>
     </div>
 </header>
-
-<style>
-    .user-icon-container {
-        cursor: pointer;
-    }
-</style>
