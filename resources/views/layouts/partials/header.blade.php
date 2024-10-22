@@ -14,6 +14,7 @@
             </form>
 
             @if (session()->has('auth_token'))
+                {{-- TODO: User quick actions should be shown when the user click icon --}}
                 <div class="user-icon-container">
                     <div class="user-icon">
                         <i class="fa-solid fa-circle-user fa-2xl"></i>
