@@ -22,7 +22,21 @@ class DashboardController extends Controller
         ]);
 
         $response = $this->apiCaller->getResponse();
+        $decoded = json_decode($response, true);
+        $news = json_encode($decoded['news']);
 
-        return view('layouts.main', ['response' => $response]);
+        $newsCategories = $this->getNewsCategories();
+
+        return view('layouts.main', ['news' => $news, 'newsCategories' => $newsCategories]);
+    }
+
+    private function getNewsCategories()
+    {
+        $this->apiCaller->call(GET, 'public/news-categories', [], []);
+
+        $response = $this->apiCaller->getResponse();
+
+        $decoded = json_decode($response, true);
+        return json_encode($decoded['categories']);
     }
 }
