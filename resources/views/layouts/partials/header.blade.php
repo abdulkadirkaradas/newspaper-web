@@ -1,12 +1,8 @@
 <?php $newsCategories = json_decode($newsCategories); ?>
 
-<style>
-    .header-category {
-        margin-left: 10px;
-    }
-</style>
-
 <header class="p-3 bg-dark text-white">
+    <span id="menu-toggle-btn" class="menu-toggle d-lg-none"
+        style="display: none; background-color: unset; border: 1px solid white;">☰</span>
     <div class="container">
         <div class="col-12 d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
             <div class="col-lg-1 text-start">
@@ -19,7 +15,8 @@
                 {{-- TODO: Categories will be added in the future --}}
                 @foreach ($newsCategories as $key => $category)
                     <a href="#"
-                        class="header-category category-{{ $key }} text-white text-decoration-none">
+                        class="header-category category-{{ $key }} text-white text-decoration-none"
+                        style="margin-left: 10px;">
                         <span class="text-white">n\</span>{{ $category->name }}
                     </a>
                 @endforeach
@@ -50,3 +47,18 @@
         </div>
     </div>
 </header>
+
+<script>
+    $(document).ready(function() {
+        $('#menu-toggle-btn').on('click', function() {
+            const sidebar = $('.sidebar');
+            let sidebarVisibility = sidebar.css('display');
+
+            if (sidebarVisibility === 'block') {
+                sidebar.css('display', 'none');
+            } else {
+                sidebar.css('display', 'block');
+            }
+        });
+    });
+</script>
