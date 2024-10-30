@@ -20,7 +20,8 @@
     "autoload": {
         "files": [
             "app/Helpers/constants.php",
-            "app/Helpers/ApiCaller.php"
+            "app/Helpers/ApiCaller.php",
+            "app/Helpers/ViewHelper.php"
         ],
         "psr-4": {
             "App\\": "app/",
