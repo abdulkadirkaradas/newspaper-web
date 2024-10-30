@@ -25,7 +25,7 @@
 </style>
 
 <div class="timeline">
-    <div class="row g-4 py-5 row-cols-xl-3 row-cols-lg-3 row-cols-md-2 row-cols-1">
+    <div class="row row-cols-xl-3 row-cols-lg-3 row-cols-md-2 row-cols-1">
         @foreach ($news as $key => $new)
             <div class="feature col post-section section<?= $key ?> p-3 bg-light">
                 <div class="post-title text-center fw-bold">
