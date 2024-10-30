@@ -5,7 +5,7 @@
     @include('layouts.partials.header')
 
     <div class="container">
-        @yield('content')
+        {!! render_page('dashboard.main') !!}
     </div>
 
     @include('layouts.partials.footer')
