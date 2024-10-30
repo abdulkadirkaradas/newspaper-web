@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-    @include('layouts.partials.head')
+@include('layouts.partials.head')
+
 <body>
-    @include('layouts.partials.header')
+    <main>
+        @include('layouts.partials.header')
 
-    <div class="container">
-        {!! render_page('dashboard.main') !!}
-    </div>
+        <div class="container">
+            {!! render_page('dashboard.main', ['news' => $news]) !!}
+        </div>
 
-    @include('layouts.partials.footer')
+        @include('layouts.partials.footer')
+    </main>
 </body>
+
 </html>
