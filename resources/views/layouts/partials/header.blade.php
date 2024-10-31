@@ -54,11 +54,7 @@
             const sidebar = $('.sidebar');
             let sidebarVisibility = sidebar.css('display');
 
-            if (sidebarVisibility === 'block') {
-                sidebar.css('display', 'none');
-            } else {
-                sidebar.css('display', 'block');
-            }
+            sidebar.css('display', sidebarVisibility === 'block' ? 'none' : 'block');
         });
     });
 </script>
