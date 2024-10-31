@@ -36,7 +36,7 @@
         padding: 20px;
         background-color: #fff;
         overflow-y: auto;
-        margin-left: 20px;
+        margin: 0 auto auto auto;
         max-width: 1200px;
     }
 
