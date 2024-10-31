@@ -36,8 +36,11 @@
         padding: 20px;
         background-color: #fff;
         overflow-y: auto;
-        margin: 0 auto auto auto;
+        margin: 70px 0 0 250px;
         max-width: 1200px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     @media (min-width: 768px) {
@@ -55,11 +58,6 @@
             transform: translateX(0);
         }
 
-        .timeline-container {
-            margin-left: 0;
-        }
-
-        /* Menü butonu */
         .menu-toggle {
             display: block;
             position: fixed;
@@ -94,3 +92,19 @@
 </body>
 
 </html>
+
+<script>
+    $(document).ready(setTimelineContainerMargin);
+    $(window).on('resize', setTimelineContainerMargin);
+
+    function setTimelineContainerMargin() {
+        const header = $('header');
+        const sidebar = $('aside');
+        let timelineContainer = $('.timeline-container');
+
+        timelineContainer.css({
+            "margin-top": header.outerHeight(),
+            "margin-left": sidebar.outerWidth()
+        });
+    }
+</script>
