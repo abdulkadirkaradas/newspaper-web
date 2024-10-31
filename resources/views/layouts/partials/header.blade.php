@@ -1,6 +1,6 @@
 <?php $newsCategories = json_decode($newsCategories); ?>
 
-<header class="p-3 bg-dark text-white">
+<header class="p-3 bg-dark text-white" style="position: fixed; top: 0; left: 0;">
     <span id="menu-toggle-btn" class="menu-toggle d-lg-none"
         style="display: none; background-color: unset; border: 1px solid white;">☰</span>
     <div class="container">
@@ -52,9 +52,11 @@
     $(document).ready(function() {
         $('#menu-toggle-btn').on('click', function() {
             const sidebar = $('.sidebar');
+            const timelineContainer = $('.timeline-container');
             let sidebarVisibility = sidebar.css('display');
 
             sidebar.css('display', sidebarVisibility === 'block' ? 'none' : 'block');
+            timelineContainer.css('margin-left', sidebarVisibility === 'block' ? 0 : setTimelineContainerMargin());
         });
     });
 </script>
