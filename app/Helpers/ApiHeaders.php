@@ -4,7 +4,9 @@ namespace App\Helpers;
 
 class ApiHeaders {
     private static string $API_URL = "http://newspaperapi.test/api/v1/";
-    private static array $headers = [];
+    private static array $headers = [
+        "Content-Type" => "application/json",
+    ];
 
     public static function setApiUrl(string $apiUrl = null): void {
         self::$API_URL = $apiUrl ?? self::$API_URL;
@@ -15,11 +17,7 @@ class ApiHeaders {
     }
 
     public static function setHeaders(array $headers = null): void {
-        $defaultHeaders = [
-            "Content-Type" => "application/json",
-        ];
-
-        self::$headers = $headers ? array_merge($defaultHeaders, $headers) : $defaultHeaders;
+        self::$headers = $headers ? array_merge(self::$headers, $headers) : self::$headers;
     }
 
     public static function getHeaders(): array {
