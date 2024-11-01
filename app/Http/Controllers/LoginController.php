@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ApiCaller;
+use App\Helpers\ApiHeaders;
 use Illuminate\Http\Request;
 
 class LoginController extends Controller
@@ -11,7 +12,9 @@ class LoginController extends Controller
 
     public function __construct()
     {
-        $this->apiCaller = new ApiCaller(API_URL, DEFAULT_HEADERS);
+        $apiUrl = ApiHeaders::getApiUrl();
+        $headers = ApiHeaders::getHeaders();
+        $this->apiCaller = new ApiCaller($apiUrl, $headers);
     }
 
     public function view()
@@ -37,6 +40,8 @@ class LoginController extends Controller
             $authToken = $decoded['authorisation']['token'];
 
             session(['auth_token' => $authToken]);
+
+            ApiHeaders::setBearerToken('', $authToken);
 
             return response()->json(['status' => $status]);
         }
