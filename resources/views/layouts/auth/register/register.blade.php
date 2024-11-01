@@ -38,7 +38,8 @@
                 </div>
                 <div class="error-message" style="color: red;"></div>
                 <div class="d-flex align-items-center justify-content-center mt-4">
-                    <button type="submit" class="btn btn-primary">{{ __('register.submit') }}</button>
+                    <button id="register-btn" type="submit"
+                        class="btn btn-primary">{{ __('register.submit') }}</button>
                 </div>
                 <span class="ajax-error-message hidden"></span>
             </form>
@@ -54,11 +55,17 @@
 
         $('#register-form').on('submit', function(e) {
             e.preventDefault();
+
+            const registerButton = $('#register-btn');
             let errorMessage = $('.ajax-error-message');
 
             errorMessage
                 .addClass('hidden')
                 .text('');
+
+            registerButton
+                .attr('disabled', true)
+                .text('Pending...');
 
             const formData = $(this).serialize();
             $.ajax({
@@ -73,6 +80,10 @@
                 errorMessage
                     .removeClass('hidden')
                     .text(response.message);
+
+                registerButton
+                    .attr('disabled', false)
+                    .text('Register');
             });
         });
     });

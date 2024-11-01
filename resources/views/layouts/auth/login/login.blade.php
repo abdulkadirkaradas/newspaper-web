@@ -64,6 +64,10 @@
                 errorMessage
                     .removeClass('hidden')
                     .text(response.message);
+
+                loginButton
+                    .attr('disabled', false)
+                    .text('Login');
             });
         });
     });
