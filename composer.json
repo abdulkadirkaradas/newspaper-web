@@ -21,7 +21,8 @@
         "files": [
             "app/Helpers/constants.php",
             "app/Helpers/ApiCaller.php",
-            "app/Helpers/commonFunctions.php"
+            "app/Helpers/commonFunctions.php",
+            "app/Helpers/ApiHeaders.php"
         ],
         "psr-4": {
             "App\\": "app/",
