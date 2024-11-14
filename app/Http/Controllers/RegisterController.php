@@ -3,15 +3,22 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ApiCaller;
+use App\Helpers\ApiHeaders;
 use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
     private ApiCaller $apiCaller;
+    private ApiHeaders $apiHeaders;
 
-    public function __construct()
+    public function __construct(ApiHeaders $apiHeaders)
     {
-        $this->apiCaller = new ApiCaller(API_URL, DEFAULT_HEADERS);
+        $this->apiHeaders = $apiHeaders;
+
+        $this->apiCaller = new ApiCaller(
+            $this->apiHeaders->getApiUrl(),
+            $this->apiHeaders->getHeaders()
+        );
     }
 
     public function view()

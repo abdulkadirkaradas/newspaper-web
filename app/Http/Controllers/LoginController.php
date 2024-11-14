@@ -9,12 +9,16 @@ use Illuminate\Http\Request;
 class LoginController extends Controller
 {
     private ApiCaller $apiCaller;
+    private ApiHeaders $apiHeaders;
 
-    public function __construct()
+    public function __construct(ApiHeaders $apiHeaders)
     {
-        $apiUrl = ApiHeaders::getApiUrl();
-        $headers = ApiHeaders::getHeaders();
-        $this->apiCaller = new ApiCaller($apiUrl, $headers);
+        $this->apiHeaders = $apiHeaders;
+
+        $this->apiCaller = new ApiCaller(
+            $this->apiHeaders->getApiUrl(),
+            $this->apiHeaders->getHeaders()
+        );
     }
 
     public function view()
@@ -40,8 +44,6 @@ class LoginController extends Controller
             $authToken = $decoded['authorisation']['token'];
 
             session(['auth_token' => $authToken]);
-
-            ApiHeaders::setBearerToken('', $authToken);
 
             return response()->json(['status' => $status]);
         }
