@@ -43,6 +43,11 @@ class DashboardController extends Controller
 
         $response = $this->apiCaller->getResponse();
         $decoded = json_decode($response, true);
+
+        if (isset($decoded['status']) && $decoded['status'] !== 400) {
+            $decoded = [];
+        }
+
         $news = json_encode($decoded['news']);
 
         $newsCategories = $this->getNewsCategories();
@@ -52,7 +57,7 @@ class DashboardController extends Controller
             'newsCategories' => $newsCategories
         ];
 
-        if ($userInformation !== []) {
+        if ($userInformation !== 400) {
             $data['userInformation'] = $userInformation;
         }
 

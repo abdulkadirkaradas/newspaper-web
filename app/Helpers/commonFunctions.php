@@ -37,6 +37,11 @@ if (!function_exists('getUserInformation')) {
 
         $response = $apiCaller->getResponse();
         $decoded = json_decode($response, true);
+
+        if ($decoded['status'] !== 200) {
+            return [];
+        }
+
         return json_encode($decoded['userInformation']);
     }
 }
