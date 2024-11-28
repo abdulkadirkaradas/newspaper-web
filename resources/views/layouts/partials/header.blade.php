@@ -31,9 +31,10 @@
                 @if (session()->has('auth_token'))
                     {{-- TODO: User quick actions should be shown when the user click icon --}}
                     <div class="user-icon-container text-end">
-                        <a href="{{ route('dashboard') }}">
+                        <div id="user-icon" class="d-flex align-items-center justify-content-center"
+                            style="width: 32px; height: 32px; float: right; cursor: pointer;">
                             <i class="fa-solid fa-circle-user fa-2xl"></i>
-                        </a>
+                        </div>
                     </div>
                 @else
                     <div class="text-end">
@@ -56,7 +57,27 @@
             let sidebarVisibility = sidebar.css('display');
 
             sidebar.css('display', sidebarVisibility === 'block' ? 'none' : 'block');
-            timelineContainer.css('margin-left', sidebarVisibility === 'block' ? 0 : setTimelineContainerMargin());
+            timelineContainer.css('margin-left', sidebarVisibility === 'block' ? 0 :
+                setTimelineContainerMargin());
+        });
+
+        // TODO: Logout action will be moved to proper place in the future
+        $('#user-icon').on('click', function() {
+            $.ajax({
+                method: "POST",
+                url: "{{ route('auth.logout') }}",
+                cache: false,
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                },
+            }).done(function(response) {
+                if (response.status === 200) {
+                    window.location.href = "{{ route('dashboard') }}"
+                }
+
+                // This alert will be removed in the future
+                alert(response.message);
+            });
         });
     });
 </script>
