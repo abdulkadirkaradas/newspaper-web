@@ -52,7 +52,7 @@
             const formData = $(this).serialize();
             $.ajax({
                 method: "POST",
-                url: "{{ route('login.login') }}",
+                url: "{{ route('auth.login') }}",
                 data: formData,
             }).done(function(response) {
                 loginButton.text('{{ __('login.submit') }}');
@@ -66,8 +66,7 @@
                     .text(response.message);
 
                 loginButton
-                    .attr('disabled', false)
-                    .text('Login');
+                    .text('{{ __('login.submit') }}');
             });
         });
     });
