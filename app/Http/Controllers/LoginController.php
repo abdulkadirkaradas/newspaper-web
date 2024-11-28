@@ -50,4 +50,22 @@ class LoginController extends Controller
 
         return response()->json(['status' => $status, 'message' => $message]);
     }
+
+    public function logout()
+    {
+        $this->apiCaller->call(POST, 'auth/logout/', [], []);
+
+        $response = $this->apiCaller->getResponse();
+        $decoded = json_decode($response, true);
+        $status = $decoded['status'];
+        $message = $decoded['message'] ?? null;
+
+        if ($status === 200) {
+            session()->forget('auth_token');
+
+            return response()->json(['status' => $status, 'message' => $message]);
+        }
+
+        return response()->json(['status' => 400, 'message' => 'Could not be logged out!']);
+    }
 }
