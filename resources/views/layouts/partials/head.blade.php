@@ -18,4 +18,4 @@
 {{-- Parsley.js Library --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/parsley.js/2.9.2/parsley.js"></script>
 
-@vite(['resources/scss/app.scss', 'resources/css/app.css', 'resources/js/app.js'])
+@vite(['resources/scss/app.scss', 'resources/css/app.css'])

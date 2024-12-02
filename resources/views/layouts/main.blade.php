@@ -74,6 +74,7 @@
 </style>
 
 <body>
+    @vite(['resources/js/app.js'])
     <main>
         <div class="main-layout-container">
             @include('layouts.partials.header')
