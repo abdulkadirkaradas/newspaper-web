@@ -23,6 +23,7 @@ class DashboardController extends Controller
     public function dashboard()
     {
         //TODO: https://github.com/abdulkadirkaradas/newspaper-web/issues/3
+        //TODO: https://github.com/abdulkadirkaradas/newspaper-web/issues/4
 
         // Added for testing purposes
         // session()->forget('auth_token');
@@ -53,15 +54,16 @@ class DashboardController extends Controller
         $newsCategories = $this->getNewsCategories();
 
         $data = [
+            'appName' => strtoupper(env('APP_NAME')),
             'news' => $news,
-            'newsCategories' => $newsCategories
+            'newsCategories' => $newsCategories,
         ];
 
         if ($userInformation !== 400) {
             $data['userInformation'] = $userInformation;
         }
 
-        return view('layouts.main', $data);
+        return view('layouts.main', ['mainData' => $data]);
     }
 
     private function getNewsCategories()

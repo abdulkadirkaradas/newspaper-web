@@ -68,4 +68,12 @@ class LoginController extends Controller
 
         return response()->json(['status' => 400, 'message' => 'Could not be logged out!']);
     }
+
+    public function checkAuthTokenExists() {
+        if (session()->exists('auth_token')) {
+            return response()->json(['status' => 'valid'], 200);
+        }
+
+        return response()->json(['status' => 'invalid'], 401);
+    }
 }

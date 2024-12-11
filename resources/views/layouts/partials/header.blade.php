@@ -53,12 +53,12 @@
     $(document).ready(function() {
         $('#menu-toggle-btn').on('click', function() {
             const sidebar = $('.sidebar');
-            const timelineContainer = $('.timeline-container');
+            const dashboardContainer = $('.dashboard-container');
             let sidebarVisibility = sidebar.css('display');
 
             sidebar.css('display', sidebarVisibility === 'block' ? 'none' : 'block');
-            timelineContainer.css('margin-left', sidebarVisibility === 'block' ? 0 :
-                setTimelineContainerMargin());
+            dashboardContainer.css('margin-left', sidebarVisibility === 'block' ? 0 :
+                setDashboardContainerMargin());
         });
 
         // TODO: Logout action will be moved to proper place in the future

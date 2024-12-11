@@ -24,7 +24,7 @@
     }
 </style>
 
-<div class="timeline">
+<div class="dashboard">
     <div class="row row-cols-xl-3 row-cols-lg-3 row-cols-md-2 row-cols-1">
         @foreach ($news as $key => $new)
             <div class="feature col post-section section<?= $key ?> p-3 bg-light">
