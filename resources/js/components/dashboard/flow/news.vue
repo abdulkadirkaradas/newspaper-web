@@ -1,22 +1,22 @@
 <template>
     <div class="news-flow">
         <div class="row row-cols-xl-3 row-cols-lg-3 row-cols-md-2 row-cols-1">
-            <div class="news" v-for="(value, key) in trimmedNews" :key="key">
+            <div class="news" v-for="(news, key) in trimmedNews" :key="key">
                 <div :class="`section-${key}`" class="feature col post-section p-3 bg-light">
                     <div class="post-title text-center fw-bold">
-                        {{ value.title }}
+                        {{ news.title }}
                     </div>
                     <div class="post-content">
-                        {{ value.content }}
+                        {{ news.content }}
                         <div class="show-more-button text-primary">{{ $t('dashboard.showMore') }}</div>
                     </div>
                     <div class="post-footer col-12 d-flex">
                         <div class="post-creation-date col-6 text-center" style="border-right: none;">
-                            {{ convertUTCDateToLocalDate(value.created_at) }}
+                            {{ convertUTCDateToLocalDate(news.created_at) }}
                         </div>
                         <div class="post-author col-6 text-center">
                             <!-- TODO: This value should be author name -->
-                            {{ value.title }}
+                            u/{{ news.author.username }}
                         </div>
                     </div>
                 </div>
