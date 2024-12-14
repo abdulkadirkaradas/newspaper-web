@@ -7,6 +7,7 @@
 </body>
 
 <script>
+    //This data passing method will be changed in the future
     window.initialData = @json($mainData);
 </script>
 
