@@ -23,39 +23,24 @@ class DashboardController extends Controller
     public function dashboard()
     {
         //TODO: https://github.com/abdulkadirkaradas/newspaper-web/issues/3
-        //TODO: https://github.com/abdulkadirkaradas/newspaper-web/issues/4
 
         // Added for testing purposes
         // session()->forget('auth_token');
 
-        $endpoint = session()->exists('auth_token')
-            ? 'writer/news/logged-user-news/'
-            : 'public/news/';
+        $publicNews = $this->getNews('public/news/', [], ["type" => "all"]);
 
-        $query = session()->exists('auth_token')
-            ? []
-            : ["type" => "all"];
-
-        $userInformation = session()->exists('auth_token')
-            ? getUserInformation()
-            : [];
-
-        $this->apiCaller->call(GET, $endpoint, [], $query);
-
-        $response = $this->apiCaller->getResponse();
-        $decoded = json_decode($response, true);
-
-        if (isset($decoded['status']) && $decoded['status'] !== 400) {
-            $decoded = [];
+        $userInformation = [];
+        if (session()->exists('auth_token')) {
+            $userInformation = session()->exists('auth_token')
+                ? getUserInformation()
+                : [];
         }
-
-        $news = json_encode($decoded['news']);
 
         $newsCategories = $this->getNewsCategories();
 
         $data = [
             'appName' => strtoupper(env('APP_NAME')),
-            'news' => $news,
+            'news' => json_encode($publicNews),
             'newsCategories' => $newsCategories,
         ];
 
@@ -64,6 +49,20 @@ class DashboardController extends Controller
         }
 
         return view('layouts.main', ['mainData' => $data]);
+    }
+
+    private function getNews($endpoint, $data = [], $query = [])
+    {
+        $this->apiCaller->call(GET, $endpoint, $data, $query);
+
+        $response = $this->apiCaller->getResponse();
+        $decoded = json_decode($response, true);
+
+        if (isset($decoded['status']) && $decoded['status'] !== 400) {
+            $decoded = [];
+        }
+
+        return $decoded['news'];
     }
 
     private function getNewsCategories()
