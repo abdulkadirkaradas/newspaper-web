@@ -15,6 +15,7 @@
                             {{ convertUTCDateToLocalDate(value.created_at) }}
                         </div>
                         <div class="post-author col-6 text-center">
+                            <!-- TODO: This value should be author name -->
                             {{ value.title }}
                         </div>
                     </div>
