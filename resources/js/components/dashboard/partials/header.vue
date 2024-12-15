@@ -7,7 +7,7 @@
                 <div class="col-lg-1 text-start">
                     <a @click="navigateTo('/')"
                         class="col-2 d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                        <span>{{ appName }}</span>
+                        <span style="cursor: pointer;">{{ appName }}</span>
                     </a>
                 </div>
 
