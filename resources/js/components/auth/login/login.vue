@@ -5,7 +5,7 @@
                 {{ $t('login.title') }}
             </div>
             <div class="section body">
-                <form id="login-form" data-parsley-validate>
+                <div id="login-form-container" data-parsley-validate>
                     <div class="input-group mb-3">
                         <span class="input-group-text">{{ $t('login.email') }}</span>
                         <input type="email" name="email" v-model="email" class="form-control" id="email-input" required>
@@ -19,12 +19,12 @@
                     </div>
                     <div class="error-message" style="color: red;"></div>
                     <div class="d-flex align-items-center justify-content-center mt-4">
-                        <button class="btn btn-primary login-submit-btn" @click="submit">
+                        <button ref="loginSubmitButton" class="btn btn-primary login-submit-btn" @click="submitLogin">
                             {{ $t('login.submit') }}
                         </button>
                     </div>
-                    <span class="ajax-error-message"></span>
-                </form>
+                    <span ref="loginErrorMessage" class="ajax-error-message"></span>
+                </div>
             </div>
             <!-- <div class="section footer"></div> -->
         </div>
@@ -42,17 +42,13 @@ export default {
     },
     methods: {
         setup() {
-            $('#login-form').parsley();
+            $('#login-form-container').parsley();
         },
-        submit() {
-            let loginButton = $('.login-submit-btn');
-            let errorMessage = $('.ajax-error-message');
+        submitLogin() {
+            this.$refs.loginErrorMessage.textContent = '';
 
-            errorMessage.text('');
-
-            loginButton
-                .attr('disabled', true)
-                .text('Pending...');
+            this.$refs.loginSubmitButton.disabled = true;
+            this.$refs.loginSubmitButton.textContent = 'Pending...';
 
             try {
                 let formData = new FormData();
@@ -67,18 +63,22 @@ export default {
                     if (response.data.status === 200) {
                         this.$router.push('/');
                     } else {
-                        errorMessage.text(response.data.message);
-                        loginButton
-                            .attr('disabled', false)
-                            .text('Submit');
+                        this.$refs.loginErrorMessage.textContent = response.data.message;
+                        this.$refs.loginSubmitButton.disabled = false;
+                        this.$refs.loginSubmitButton.textContent = 'Submit';
                     }
                 }).catch((error) => {
-                    this.errorMessage = error.message;
+                    this.$refs.loginErrorMessage.textContent = error.message;
+                    this.$refs.loginSubmitButton.disabled = false;
+                    this.$refs.loginSubmitButton.textContent = 'Submit';
                 });
             } catch (error) {
-                this.errorMessage = error;
+                this.$refs.loginErrorMessage.textContent = error;
+                this.$refs.loginSubmitButton.disabled = false;
+                this.$refs.loginSubmitButton.textContent = 'Submit';
             }
         }
+
     }
 }
 </script>

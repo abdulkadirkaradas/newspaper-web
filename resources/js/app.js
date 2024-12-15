@@ -2,7 +2,6 @@ import "./bootstrap";
 import { createApp } from "vue";
 import Dashboard from "./components/dashboard/dashboard.vue";
 import router from "./routes/index";
-import dateMixin from "./mixins/dateMixin";
 import { i18nVue } from "laravel-vue-i18n";
 import { createPinia } from "pinia";
 
@@ -16,5 +15,4 @@ createApp(Dashboard)
     })
     .use(pinia)
     .use(router)
-    .mixin(dateMixin)
     .mount("#dashboard-container");

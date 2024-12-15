@@ -6,4 +6,5 @@ return [
     "password" => "Password",
     "emailInput" => "Enter email",
     "submit" => "Login",
+    "logoutErrorMessage" => "An error occurred during the logout.",
 ];

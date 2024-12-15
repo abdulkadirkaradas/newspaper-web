@@ -26,7 +26,15 @@
 </template>
 
 <script>
+import { useDate } from '../../../composables/useDate';
 export default {
+    setup() {
+        const { convertUTCDateToLocalDate } = useDate();
+
+        return {
+            convertUTCDateToLocalDate
+        }
+    },
     inject: ['news'],
     computed: {
         trimmedNews() {
@@ -40,8 +48,8 @@ export default {
 
 <style lang="scss">
 .news-flow {
-    & .post-title
-    .post-content,
+
+    & .post-title .post-content,
     .post-author,
     .post-creation-date {
         border: 1px solid black;

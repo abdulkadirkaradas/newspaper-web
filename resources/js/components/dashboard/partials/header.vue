@@ -64,6 +64,7 @@
 
 <script>
 import axios from 'axios';
+import { useErrorStore } from '../../../stores/errorStore';
 import { useAuthStore } from '../../../stores/authStore';
 
 export default {
@@ -75,6 +76,7 @@ export default {
     },
     inject: ['appName', 'newsCategories'],
     computed: {
+        errorStore: () => useErrorStore(),
         authStore: () => useAuthStore(),
         isAuthTokenExists: () => useAuthStore().isAuthTokenExists
     },
@@ -83,8 +85,11 @@ export default {
             const response = await axios.post('login/logout');
 
             if (response.status === 200) {
+                this.errorStore.clearError();
                 this.authStore.setIsAuthTokenExists(false);
                 this.$router.push('/');
+            } else {
+                this.errorStore.setError(this.$t('login.logoutErrorMessage'), true);
             }
         },
         menuToggleButton() {
@@ -99,11 +104,13 @@ export default {
             this.$router.push(route);
         },
         toggleUserMenu() {
-            const menu = $('.user-menu-container');
+            if (this.authStore.isAuthTokenExists === true) {
+                const menu = $('.user-menu-container');
 
-            this.setUserMenuPosition();
+                this.setUserMenuPosition();
 
-            menu.toggle();
+                menu.toggle();
+            }
         },
         setUserMenuPosition() {
             const menu = $('.user-menu-container');

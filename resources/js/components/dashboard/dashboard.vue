@@ -6,6 +6,8 @@
             <Sidebar></Sidebar>
 
             <div class="news-flow-container">
+                <div v-show="toggleErrorMessage" class="error-message alert alert-danger text-center" role="alert">{{
+                    errorMessage }}</div>
                 <NewsFlow v-if="showNewsFlow"></NewsFlow>
                 <router-view v-else></router-view>
             </div>
@@ -17,6 +19,7 @@
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 
+import { useErrorStore } from "../../stores/errorStore";
 import { useAuthStore } from "../../stores/authStore";
 import Header from "./partials/header.vue";
 import Sidebar from "./partials/sidebar.vue";
@@ -30,10 +33,15 @@ export default {
         const showNewsFlow = computed(() => route.meta.showNewsFlow);
         const showRouterView = computed(() => route.meta.showRouterView);
 
-        return { showNewsFlow, showRouterView };
+        return {
+            showNewsFlow,
+            showRouterView,
+        };
     },
     computed: {
-        authStore: () => useAuthStore()
+        authStore: () => useAuthStore(),
+        errorMessage: () => useErrorStore().message,
+        toggleErrorMessage: () => useErrorStore().toggleErrorMesage,
     },
     data() {
         return {
@@ -109,9 +117,10 @@ header {
         overflow-y: auto;
         margin-left: 250px;
         max-width: 1200px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+
+        & .error-message {
+            font-size: 1.25em;
+        }
     }
 
     @media (min-width: 768px) {
