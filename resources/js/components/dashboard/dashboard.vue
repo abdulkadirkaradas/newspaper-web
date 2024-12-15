@@ -6,8 +6,9 @@
             <Sidebar></Sidebar>
 
             <div class="news-flow-container">
-                <div v-show="toggleErrorMessage" class="error-message alert alert-danger text-center" role="alert">{{
-                    errorMessage }}</div>
+                <div v-show="toggleErrorMessage" class="error-message alert alert-danger text-center" role="alert">
+                    {{ errorMessage }}
+                </div>
                 <NewsFlow v-if="showNewsFlow"></NewsFlow>
                 <router-view v-else></router-view>
             </div>
