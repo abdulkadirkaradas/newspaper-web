@@ -68,11 +68,11 @@ import { useErrorStore } from '../../../stores/errorStore';
 import { useAuthStore } from '../../../stores/authStore';
 
 export default {
-    created() {
+    mounted() {
         window.addEventListener("resize", this.setUserMenuPosition);
     },
     destroyed() {
-        window.addEventListener("resize", this.setUserMenuPosition);
+        window.removeEventListener("resize", this.setUserMenuPosition);
     },
     inject: ['appName', 'newsCategories'],
     computed: {
@@ -113,13 +113,15 @@ export default {
             }
         },
         setUserMenuPosition() {
-            const menu = $('.user-menu-container');
-            const userIcon = $('#user-icon').offset();
+            if (this.authStore.isAuthTokenExists === true) {
+                const menu = $('.user-menu-container');
+                const userIcon = $('#user-icon').offset();
 
-            menu.css({
-                top: `${userIcon.top + 50}px`,
-                left: `${userIcon.left - 85}px`,
-            });
+                menu.css({
+                    top: `${userIcon.top + 50}px`,
+                    left: `${userIcon.left - 85}px`,
+                });
+            }
         }
     }
 }

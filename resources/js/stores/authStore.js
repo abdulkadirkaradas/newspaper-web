@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 
 export const useAuthStore = defineStore('authStore', {
     state: () => ({
-        isAuthTokenExists: null
+        isAuthTokenExists: false
     }),
     actions: {
         setIsAuthTokenExists(value) {
